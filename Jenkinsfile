@@ -22,7 +22,7 @@ pipeline {
         stage('Maven') {
             steps {
                 withMaven(mavenSettingsConfig: 'mvn-elearn-repo-settings') {
-                    sh "mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=${env.DOCKER_TARGET}"
+                    sh "mvn -U clean spring-boot:build-image -Dspring-boot.build-image.imageName=${env.DOCKER_TARGET}"
                 }
             }
         }
