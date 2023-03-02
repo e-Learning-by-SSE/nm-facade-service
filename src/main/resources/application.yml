@@ -1,0 +1,5 @@
+competence-repository:
+    base-path: https://staging.sse.uni-hildesheim.de:9010
+
+path-finder-service:
+    base-path: https://staging.sse.uni-hildesheim.de:9012
