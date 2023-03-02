@@ -22,7 +22,7 @@ pipeline {
         stage('Maven') {
             steps {
                 withMaven(mavenSettingsConfig: 'mvn-elearn-repo-settings') {
-                    sh "mvn clean deploy spring-boot:build-image -Dspring-boot.build-image.imageName=${env.DOCKER_TARGET}"
+                    sh "mvn -U clean deploy spring-boot:build-image -Dspring-boot.build-image.imageName=${env.DOCKER_TARGET}"
                 }
             }
         }
@@ -60,9 +60,6 @@ pipeline {
              // Based on: https://stackoverflow.com/a/39178479
              load "$JENKINS_HOME/.envvars/emails.groovy"
              step([$class: 'Mailer', recipients: "${env.elsharkawy}", notifyEveryUnstableBuild: true, sendToIndividuals: false])
-
-             // Report static analyses
-             recordIssues enabledForFailure: false, tool: checkStyle(pattern: 'output/eslint/eslint.xml')
         }
     }
 }
