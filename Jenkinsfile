@@ -47,8 +47,8 @@ pipeline {
         // Based on: https://medium.com/@mosheezderman/c51581cc783c
         stage('Deploy') {
             steps {
-                sshagent(credentials: ['Stu-Mgmt_Demo-System']) {
-                    sh "ssh -i ~/.ssh/id_rsa_student_mgmt_backend ${DEMO_SERVER_USER}@${env.DEMO_SERVER} ${REMOTE_UPDATE_SCRIPT}"
+                sshagent(['STM-SSH-DEMO']) {
+                    sh "ssh -o StrictHostKeyChecking=no -l elscha ${env.DEMO_SERVER}  ${REMOTE_UPDATE_SCRIPT}"
                 }
             }
         }
