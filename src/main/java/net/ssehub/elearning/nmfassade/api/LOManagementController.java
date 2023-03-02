@@ -2,6 +2,7 @@ package net.ssehub.elearning.nmfassade.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.ssehub.e_learning.competence_repository.ApiClient;
@@ -10,6 +11,7 @@ import net.ssehub.e_learning.competence_repository.model.RepositoryListDto;
 import net.ssehub.elearning.nmfassade.config.ApplicationConfiguration;
 
 @RestController
+@RequestMapping("/lo_management")
 public class LOManagementController {
 	
 	@Autowired
