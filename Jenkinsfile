@@ -1,3 +1,4 @@
+@Library('web-service-helper-lib') _
 pipeline {
     agent {
         label 'maven && docker && jdk17'
@@ -15,14 +16,18 @@ pipeline {
         stage('Git') {
             steps {
                 cleanWs()
-                git branch: 'main', url: 'https://github.com/e-Learning-by-SSE/nm-facade-service.git'
+                git branch: 'citest', url: 'https://github.com/e-Learning-by-SSE/nm-facade-service.git'
             }
         }
         
         stage('Maven') {
             steps {
                 withMaven(mavenSettingsConfig: 'mvn-elearn-repo-settings') {
-                    sh "mvn clean install spring-boot:build-image -Dspring-boot.build-image.imageName=${env.DOCKER_TARGET}"
+                    sh "mvn clean verify spring-boot:build-image -Dspring-boot.build-image.imageName=${env.DOCKER_TARGET}"
+                }
+                script {
+                    version = getMvnProjectVersion()
+                    generateSwaggerClient('target/openapi.json', version, 'net.ssehub', 'nm-facade-service', ['javascript'])
                 }
             }
         }
