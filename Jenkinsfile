@@ -24,7 +24,7 @@ pipeline {
                 }
                 script {
                     version = getMvnProjectVersion()
-                    generateSwaggerClient('target/openapi.json', version, 'net.ssehub', 'nm-facade-service', ['javascript'])
+                    generateSwaggerClient('target/openapi.json', version, 'net.ssehub', 'nm-facade-service', ['javascript', 'java'])
                 }
             }
         }
