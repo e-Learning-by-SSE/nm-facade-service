@@ -1,62 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.3</version>
-        <relativePath /> <!-- lookup parent from repository -->
-    </parent>
-    <groupId>net.ssehub.e-learning</groupId>
-    <artifactId>nm-fassade</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>nm-fassade</name>
-    <description>Bundles multiple services related to the Nanomodul concept of SSE</description>
-    <properties>
-        <java.version>17</java.version>
-    </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- REST Clients -->
-        <dependency>
-            <groupId>net.ssehub.e_learning</groupId>
-            <artifactId>competence_repository</artifactId>
-            <version>0.3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>net.ssehub.e_learning</groupId>
-            <artifactId>competence_ai</artifactId>
-            <version>0.2</version>
-        </dependency>
-        <!-- OpenAPI -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.0.2</version>
-        </dependency>
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-    <distributionManagement>
-        <repository>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.0.3</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>net.ssehub.e-learning</groupId>
+	<artifactId>nm-fassade</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>nm-fassade</name>
+	<description>Bundles multiple services related to the Nanomodul concept of SSE</description>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- REST Clients -->
+		<dependency>
+			<groupId>net.ssehub.e_learning</groupId>
+			<artifactId>competence_repository</artifactId>
+			<version>0.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.ssehub.e_learning</groupId>
+			<artifactId>competence_ai</artifactId>
+			<version>0.2</version>
+		</dependency>
+		<!-- OpenAPI -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- start during integration test phase so that openapi.json can be generated -->
+				<executions>
+					<execution>
+						<id>start-pre-integreation-test</id>
+						<goals>
+							<goal>start</goal>
+						</goals>
+						<configuration>
+							<arguments>--spring.profiles.active=openapi,--spring.profiles.active=test</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>stop-post-integreation-test</id>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<!-- Create openapi.json during integreation test phase -->
+			<plugin>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-maven-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<id>generate-openapi-json</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<outputFileName>openapi.json</outputFileName>
+					<outputDir>${project.build.directory}</outputDir>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<distributionManagement>
+		<repository>
 			<id>e-learning-by-sse-github</id>
 			<name>GitHub e-learning-by-SSE Apache Maven Packages</name>
 			<url>https://maven.pkg.github.com/e-learning-by-sse/maven-packages</url>
 		</repository>
-    </distributionManagement>
+	</distributionManagement>
 </project>
