@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_TARGET = 'ghcr.io/e-learning-by-sse/nm-fassade-service:latest'
+        DOCKER_TARGET = 'ghcr.io/e-learning-by-sse/nm-facade-service:latest'
         DEMO_SERVER = 'staging.sse.uni-hildesheim.de'
         DEMO_SERVER_USER = "elscha"
         REMOTE_UPDATE_SCRIPT = '/staging/update-compose-project.sh nm-competence-repository'
@@ -15,7 +15,7 @@ pipeline {
         stage('Git') {
             steps {
                 cleanWs()
-                git branch: 'main', url: 'https://github.com/e-Learning-by-SSE/nm-fassade-service.git'
+                git branch: 'main', url: 'https://github.com/e-Learning-by-SSE/nm-facade-service.git'
             }
         }
         
@@ -43,8 +43,6 @@ pipeline {
             }
         }
 
-
-        // Based on: https://medium.com/@mosheezderman/c51581cc783c
         stage('Deploy') {
             steps {
                 sshagent(['STM-SSH-DEMO']) {
