@@ -40,7 +40,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                stagingDeploy('/staging/update-compose-project.sh nm-competence-repository')
+                stagingDeploy('/staging/update-compose-project.sh nm-facade-service')
             }
         }
     }
