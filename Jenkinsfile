@@ -6,9 +6,6 @@ pipeline {
 
     environment {
         DOCKER_TARGET = 'ghcr.io/e-learning-by-sse/nm-facade-service:latest'
-        DEMO_SERVER = 'staging.sse.uni-hildesheim.de'
-        DEMO_SERVER_USER = "elscha"
-        REMOTE_UPDATE_SCRIPT = '/staging/update-compose-project.sh nm-competence-repository'
     }
 
     stages {
@@ -50,9 +47,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sshagent(['STM-SSH-DEMO']) {
-                    sh "ssh -o StrictHostKeyChecking=no -l elscha ${env.DEMO_SERVER}  ${REMOTE_UPDATE_SCRIPT}"
-                }
+                stagingDeploy('/staging/update-compose-project.sh nm-competence-repository')
             }
         }
     }
