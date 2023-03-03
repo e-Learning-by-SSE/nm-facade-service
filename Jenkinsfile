@@ -13,7 +13,7 @@ pipeline {
         stage('Git') {
             steps {
                 cleanWs()
-                git branch: 'citest', url: 'https://github.com/e-Learning-by-SSE/nm-facade-service.git'
+                git branch: 'main', url: 'https://github.com/e-Learning-by-SSE/nm-facade-service.git'
             }
         }
         
