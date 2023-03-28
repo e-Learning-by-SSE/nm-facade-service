@@ -8,7 +8,7 @@ import {
   Configuration,
   ConfigurationParameters,
   LoginDto,
-} from 'src/typescript-axios-client';
+} from 'src/services/CompRepoService';
 
 @Injectable()
 export class TasksService {
