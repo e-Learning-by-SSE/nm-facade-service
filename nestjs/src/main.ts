@@ -7,8 +7,8 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Tasks')
-    .setDescription('The tasks API description')
-    .setVersion('1.0')
+    .setDescription('The SSE Gateway API description')
+    .setVersion('0.1')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
