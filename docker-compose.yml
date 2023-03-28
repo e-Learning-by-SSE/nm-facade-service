@@ -3,14 +3,14 @@ version: "3.5"
 services:
   nestjs:
     build:
-      context: ./packages/nestjs
+      context: ./nestjs
       dockerfile: Dockerfile.dev
     env_file:
-     - ./packages/nestjs/.env.dev
+     - ./nestjs/.env.dev
     ports:
       - 3001:3001
     volumes:
-      - ./packages/nestjs/src/:/app/src
+      - ./nestjs/src/:/app/src
 
   postgres:
     image: postgres:13.1
