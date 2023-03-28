@@ -8,7 +8,7 @@ import {
   Configuration,
   ConfigurationParameters,
   LoginDto,
-} from 'src/swagger';
+} from 'src/typescript-axios-client';
 
 @Injectable()
 export class TasksService {
