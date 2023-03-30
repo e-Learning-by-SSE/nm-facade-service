@@ -28,7 +28,6 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mv docker/Dockerfile Dockerfile'
                 script {
                     // Based on:
                     // - https://e.printstacktrace.blog/jenkins-pipeline-environment-variables-the-definitive-guide/
