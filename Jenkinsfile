@@ -16,7 +16,7 @@ pipeline {
         stage('Git') {
             steps {
                 cleanWs()
-                git branch: 'main', url: 'https://github.com/e-Learning-by-SSE/Search-AI-Facade-service.git'
+                git branch: 'main', url: 'https://github.com/e-Learning-by-SSE/nm-facade-service.git'
             }
         }
 
