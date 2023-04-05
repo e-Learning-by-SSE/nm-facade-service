@@ -3,12 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { CompDto } from './dto/comp.dto';
 
 import {
-  AuthDto,
   AuthenticationApi,
   Configuration,
   ConfigurationParameters,
   LoginDto,
-} from 'src/services/CompRepoService';
+} from '@e-learning-by-sse/competence_repository_api';
 
 @Injectable()
 export class InternalService {
