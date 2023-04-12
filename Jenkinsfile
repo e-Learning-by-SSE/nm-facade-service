@@ -40,7 +40,7 @@ pipeline {
                     env.API_VERSION = sh(returnStdout: true, script: 'grep -Po "(?<=  \\"version\\": \\").*(?=\\",)" package.json').trim()
                     echo "API: ${env.API_VERSION}"
 					withCredentials([string(credentialsId: 'Github_Packages_Read', variable: 'READONLY_TOKEN')]) {
-						dockerImage = docker.build('e-learning-by-sse/nm-facade-service', "--build-arg TOKEN=$READONLY_TOKEN -f Dockerfile .") {
+						dockerImage = docker.build('e-learning-by-sse/nm-facade-service', "--build-arg TOKEN=$READONLY_TOKEN -f Dockerfile .")
 						docker.withRegistry('https://ghcr.io', 'github-ssejenkins') {
 							dockerImage.push("${env.API_VERSION}")
 							dockerImage.push('latest')
